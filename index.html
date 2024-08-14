@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .game-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .choice-display {
+            text-align: center;
+            margin: 0 20px;
+        }
+
+        .choice-display p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .choice-display img {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+
+        table {
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 20px;
+        }
+
+        th,
+        td {
+            padding: 10px 20px;
+            border: solid 1px #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            font-size: 18px;
+        }
+
+        td {
+            font-size: 16px;
+            color: #555;
+        }
+
+        #ans {
+            font-size: 18px;
+            margin: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .choice-button {
+            background-color: transparent;
+            border: none;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .choice-button:hover {
+            transform: scale(1.1);
+        }
+
+        .choice-image {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Rock Paper Scissors</h1>
+
+    <div class="game-container">
+        <div class="choice-display">
+
+            <img id="userChoiceImage" src="placeholder.png" alt="Your Choice">
+        </div>
+        <table>
+            <tr>
+                <th colspan="2">Score</th>
+            </tr>
+            <tr>
+                <td>You</td>
+                <td>PC</td>
+            </tr>
+            <tr>
+                <td id="user">0</td>
+                <td id="pc">0</td>
+            </tr>
+        </table>
+        <div class="choice-display">
+            <img id="pcChoiceImage" src="placeholder.png" alt="PC Choice">
+        </div>
+    </div>
+
+    <p id="ans">Make your move!</p>
+
+    <div>
+        <button type="button" class="choice-button" onclick="play('r')">
+            <img src="rock.png" alt="Rock" class="choice-image">
+        </button>
+        <button type="button" class="choice-button" onclick="play('p')">
+            <img src="paper.png" alt="Paper" class="choice-image">
+        </button>
+        <button type="button" class="choice-button" onclick="play('s')">
+            <img src="scissor.png" alt="Scissor" class="choice-image">
+        </button>
+    </div>
+
+    <script>
+        var usr = 0;
+        var plr = 0;
+
+        function play(c) {
+            var r = parseInt(Math.random() * 3);
+            var fl = 0;
+            var pcChoice = '';
+            var userChoice = '';
+
+            switch (c) {
+                case 'r':
+                    userChoice = 'Rock';
+                    document.getElementById("userChoiceImage").src = "rock.png";
+                    break;
+                case 'p':
+                    userChoice = 'Paper';
+                    document.getElementById("userChoiceImage").src = "paper.png";
+                    break;
+                case 's':
+                    userChoice = 'Scissor';
+                    document.getElementById("userChoiceImage").src = "scissor.png";
+                    break;
+                default:
+                    break;
+            }
+
+            switch (r) {
+                case 0:
+                    pcChoice = 'Scissor';
+                    document.getElementById("pcChoiceImage").src = "scissor.png";
+                    if (c == 'r') {
+                        fl = 1;
+                    }
+                    break;
+                case 1:
+                    pcChoice = 'Rock';
+                    document.getElementById("pcChoiceImage").src = "rock.png";
+                    if (c == 'p') {
+                        fl = 1;
+                    }
+                    break;
+                case 2:
+                    pcChoice = 'Paper';
+                    document.getElementById("pcChoiceImage").src = "paper.png";
+                    if (c == 's') {
+                        fl = 1;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            if (userChoice === pcChoice) {
+                document.getElementById("ans").innerHTML = "It's a draw!";
+            } else if (fl) {
+                document.getElementById("ans").innerHTML = "You won!";
+                document.getElementById("user").innerHTML = ++usr;
+            } else {
+                document.getElementById("ans").innerHTML = "You lose!";
+                document.getElementById("pc").innerHTML = ++plr;
+            }
+        }
+    </script>
+</body>
+
+</html>
